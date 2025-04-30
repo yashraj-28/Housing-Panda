@@ -2,14 +2,6 @@
 
 HousingPanda is a basic full-stack web application where users can submit rental listings and view all existing listings. It's built with **Node.js**, **Express**, **MySQL**, and styled using **Tailwind CSS**. Data is submitted through a form and stored in a relational database.
 
----
-
-## Project Structure
-
-housingpanda/ │ ├── public/ │ ├── home.html # Form to submit listings │ ├── listings.html # Displays all listings │ ├── db/ │ └── database.js # MySQL connection setup │ ├── routes/ │ └── listings.js # All listing-related routes │ ├── server.js # Main Express server ├── package.json # Node dependencies └── README.md # This file
-
----
-
 ## Features
 
 - Submit rental listings with:
