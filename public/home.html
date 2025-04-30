@@ -1,0 +1,165 @@
+<!-- public/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HousingPanda - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 font-sans">
+    <!-- Header with "View Listings" button -->
+    <header
+      class="bg-green-600 text-white py-6 flex justify-between items-center px-6"
+    >
+      <h1 class="text-3xl font-bold">HousingPanda</h1>
+      <a
+        href="/listings.html"
+        class="bg-white text-green-700 font-semibold px-4 py-2 rounded hover:bg-gray-100"
+      >
+        View Listings
+      </a>
+    </header>
+
+    <!-- Main Form Section -->
+    <main class="py-12">
+      <div
+        class="container mx-auto bg-white p-8 rounded-lg shadow-lg max-w-2xl"
+      >
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6">
+          Submit a New Listing
+        </h2>
+
+        <form id="listingForm">
+          <div class="mb-6">
+            <label for="title" class="block text-lg font-semibold text-gray-700"
+              >Listing Title</label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label
+              for="description"
+              class="block text-lg font-semibold text-gray-700"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            ></textarea>
+          </div>
+
+          <div class="mb-6">
+            <label for="rent" class="block text-lg font-semibold text-gray-700"
+              >Rent ($)</label
+            >
+            <input
+              type="number"
+              id="rent"
+              name="rent"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label
+              for="address"
+              class="block text-lg font-semibold text-gray-700"
+              >Address</label
+            >
+            <input
+              type="text"
+              id="address"
+              name="address"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label for="rooms" class="block text-lg font-semibold text-gray-700"
+              >Number of Rooms</label
+            >
+            <input
+              type="number"
+              id="rooms"
+              name="rooms"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label
+              for="contact_info"
+              class="block text-lg font-semibold text-gray-700"
+              >Contact Info</label
+            >
+            <input
+              type="text"
+              id="contact_info"
+              name="contact_info"
+              required
+              class="mt-2 p-3 border border-gray-300 rounded w-full"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="bg-green-600 text-white p-4 w-full rounded hover:bg-green-700"
+          >
+            Submit Listing
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <!-- Success Message Popup (hidden by default) -->
+    <div
+      id="successPopup"
+      class="fixed top-5 right-5 bg-green-500 text-white px-6 py-4 rounded shadow-lg hidden z-50"
+    >
+      Listing submitted successfully!
+    </div>
+
+    <!-- JS to handle form submission -->
+    <script>
+      const form = document.getElementById("listingForm");
+      const popup = document.getElementById("successPopup");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          popup.classList.remove("hidden");
+          form.reset();
+
+          setTimeout(() => {
+            popup.classList.add("hidden");
+          }, 3000);
+        } else {
+          alert("Error submitting listing. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>
